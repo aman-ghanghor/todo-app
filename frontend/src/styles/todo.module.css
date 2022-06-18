@@ -1,0 +1,128 @@
+
+
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid blue;
+}
+
+.todo {
+    flex-grow: 1;
+    height: auto;
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1rem;
+    margin: 0rem auto;
+    background-color: rgb(73, 73, 255);
+    border-radius: 3px;
+    /* background-image: linear-gradient(to right,rgb(111, 111, 255), rgb(0, 42, 255)); */
+    /* transition */
+    transition: all 0.25s ease-out;
+}
+
+
+.form {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.form input {
+    width: 100%;
+    font-size: 1rem;
+    padding: 1rem 1rem;
+    background-color: rgb(244, 244, 244);
+    color: rgb(62, 62, 255);
+    border: 0;
+    /* outline: 2px solid rgb(255, 255, 255, 0.5); */
+    outline: 0;
+}
+
+.form input:focus {
+    background-color: rgb(255, 255, 255);
+}
+
+.form:focus-within {
+    outline: 3px solid rgb(0, 0, 0);
+}
+
+.form input::placeholder {
+    color: rgba(15, 13, 110, 0.8);
+}
+
+.form button {
+   background-color: rgb(0, 0, 0);
+   color: rgb(255, 255, 255);
+   padding: 1rem 1.25rem;
+   font-size: 1rem;
+   border: 0 ;
+   outline: 0;
+}
+
+
+.list {
+    flex-grow: 1;
+    height: 400px;
+    overflow: auto;
+}
+
+.list ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+
+.list ul li {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color:rgb(255, 255, 255, 0.9);
+
+    padding: 0.75rem 1rem;
+    background-color: rgba(94, 118, 255, 0.5);
+    border-radius: 3px;
+    box-shadow: 1px 1px 5px rgb(0, 0, 255, 0.8);
+    /* transition */
+    transition: all 0.25s ease-out;
+}
+.list ul li:hover {
+    cursor: pointer;
+    background-color: rgba(163, 177, 255, 0.5);
+    box-shadow: 2px 2px 10px rgb(0, 0, 255, 0.8);
+}
+
+.list .actions {
+    margin-left: auto;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.list .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+    color: rgb(255, 255, 255, 0.6) ;
+}
+.list .icon:hover {
+    color: rgb(255, 255, 255, 0.9) ;
+}
+
+.list .icon:first-child {
+    font-size: 1.1rem;
+}
+.list .icon:last-child {
+    font-size: 1.175rem
+}
+
+
+
+@media screen and (min-width: 768px) {
+    .todo {
+        margin: 2rem auto;
+        padding: 2rem 1.5rem;
+    }
+}
