@@ -11,7 +11,7 @@ import { useGlobalContext } from '../context';
 
 function Form() {
   const [isLogging, setIsLogging] = useState(false)
-  const {isLogged, user} = useGlobalContext();
+  const {user} = useGlobalContext();
 
   const navigate = useNavigate() ;
 

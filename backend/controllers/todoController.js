@@ -1,6 +1,5 @@
 import UserModel from "../models/userModel.js"
 
-const userid = "62ac4b20f3a500fcd81d0b0d" ;
 
 class TodoController {
 
@@ -8,7 +7,6 @@ class TodoController {
        const user = req.user ;
        try {
            const {todoList} = await UserModel.findOne({_id: user._id}, {todoList: 1}) ;
-           console.log(todoList)
            res.send({status: 'success', data: todoList, message: 'todo list fetched successfully'});
        }
        catch(error) {
@@ -20,6 +18,7 @@ class TodoController {
 
     static addItem = async (req, res) => {
         const user = req.user ;
+        console.log(req.user) ;
         const {text} = req.body ;
         if(text) {
             const item = {text} ;

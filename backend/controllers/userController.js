@@ -6,7 +6,6 @@ import UserModel from "../models/userModel.js";
 class UserController {
   // registration
   static userRegistration = async (req, res) => {
-    console.log(req.body);
     const { name, email, password } = req.body;
     const user = await UserModel.findOne({ email: email });
     if (user) {
@@ -100,7 +99,6 @@ class UserController {
          res.send({ status: "failed", message: "unable to fetch user" });
       }
    }
-
 
 }
 

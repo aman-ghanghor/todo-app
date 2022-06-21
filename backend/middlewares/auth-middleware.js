@@ -4,7 +4,6 @@ import UserModel from "../models/userModel.js"
 
 const checkUserAuth = async (req, res, next) => {
    const { authorization } = req.headers ;
-
    if(authorization && authorization.startsWith("Bearer") ) { 
       try {
           // Get Token from Header
@@ -18,7 +17,6 @@ const checkUserAuth = async (req, res, next) => {
           next()
       }
       catch(error) {
-         console.log(error)
          res.status(401).send({"status": "Unauthorized User", "message": "Unauthorized User"})
       }
    }

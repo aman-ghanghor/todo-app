@@ -5,7 +5,7 @@ import { useGlobalContext } from "../context";
 
 import css from "../styles/form.module.css" ;
 
-const url = 'http://localhost:8000/api/user/login';
+const url = 'https://servertodoapp.herokuapp.com/api';
 
 
 function Login() {
@@ -22,21 +22,26 @@ function Login() {
     e.preventDefault() ;
    
     if(email && password) {
-       const res = await fetch(url, {
-         method: "POST",
-         headers: {
-           'Content-Type': 'application/json'
-         },
-         body: JSON.stringify({email, password})
-       })
-       const result = await res.json() ;
-       if(result.status==='success') {
-          localStorage.setItem('token', result.token) ;
-          userLogin(result.data) ;
-          navigate('/todo') ;
+       try {
+         const res = await fetch(`${url}/user/login`, {
+           method: "POST",
+           headers: {
+             'Content-Type': 'application/json'
+           },
+           body: JSON.stringify({email, password})
+         })
+         const result = await res.json() ;
+           if(result.status==='success') {
+              localStorage.setItem('token', result.token) ;
+              userLogin(result.data) ;
+              navigate('/todo') ;
+           }
+           else {
+              alert(result.message) ;
+           }
        }
-       else {
-          alert(result.message) ;
+       catch(error) {
+         // console.log(error) ;
        }
     }
     else {

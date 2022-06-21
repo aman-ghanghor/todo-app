@@ -6,19 +6,20 @@ import css from "../styles/todo.module.css";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
-import { FiEdit, FiEdit2, FiEdit3 } from "react-icons/fi";
+import { FiEdit2 } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 import { useGlobalContext } from "../context";
 
 
-const url = 'http://localhost:8000/api/todo' ;
-const token = localStorage.getItem("token") ;
+const url = 'https://servertodoapp.herokuapp.com/api/todo';
 
 
 const Todo = () => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [updatingIndex, setUpdatingIndex] = useState(null);
   const [text, setText] = useState("");
+
+  const token = localStorage.getItem("token") ;
  
   const {user, todoList, updateTodoList} = useGlobalContext();
 
@@ -28,7 +29,7 @@ const Todo = () => {
     if(user===null) {
        navigate('/form')
     }
-  }, [])
+  })
 
 
   const handleSubmit = async (e) => {
@@ -47,7 +48,6 @@ const Todo = () => {
             body: JSON.stringify(note)
           });
           const result  = await res.json() ;
-          console.log(result) ;
           if(result.status==='success') {
             updateTodoList(result.data) ;
             setIsUpdating(false);
@@ -58,7 +58,7 @@ const Todo = () => {
           }
         }
         catch(error) {
-          console.log(error)
+          // console.log(error)
         }
       } 
       else {
@@ -73,7 +73,6 @@ const Todo = () => {
             body: JSON.stringify({text})
           });
           const result  = await res.json() ;
-          console.log(result) ;
           if(result.status==='success') {
             updateTodoList(result.data) ;
           }
@@ -82,7 +81,7 @@ const Todo = () => {
           }
         }
         catch(error) {
-          console.log(error)
+          // console.log(error)
         }
       }
       setText("");
@@ -105,7 +104,6 @@ const Todo = () => {
         }
       });
       const result  = await res.json() ;
-      console.log(result)
       if(result.status==='success') {
         updateTodoList(result.data) ;
       }
@@ -114,7 +112,7 @@ const Todo = () => {
       }
     }
     catch(error) {
-      console.log(error)
+      // console.log(error)
     }
     if (isUpdating) {
       setIsUpdating(false);

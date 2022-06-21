@@ -1,9 +1,12 @@
-import React, {useContext, useState, useEffect, useReducer} from "react";
+import React, {useContext, useEffect, useReducer} from "react";
 
 const AppContext = React.createContext();
 
+const url = 'https://servertodoapp.herokuapp.com/api' ;
+
 
 const initialState = {
+    token: null,
     user: null,
     isSidebarOpen: false,
     isLogged: false,
@@ -14,12 +17,10 @@ const reducer = (state, action) => {
     const {type, payload} = action ;
 
     if(type==="SET_SIDEBAR_OPEN") {
-        console.log(payload)
         return {...state, isSidebarOpen: payload}
     }
 
     if(type==="LOGIN") {
-        console.log("login", payload.todoList) ;
         return {...state, isLogged: true, user: payload, todoList: payload.todoList}
     }
 
@@ -40,10 +41,35 @@ const AppProvider = ({children}) => {
     const [state, dispatch] = useReducer(reducer, initialState) ;
 
     const {user, isSidebarOpen, isLogged, todoList} = state  ;
-    console.log(state)
+
+    useEffect(()=>{
+        const token = localStorage.getItem('token') ;
+        if(token) {
+          async function fetchUser() {
+              try {
+                  const res = await fetch(`${url}/user`, {
+                     method: "GET",
+                     headers: {
+                         'Authorization': "Bearer " + token
+                     }
+                  })
+                  const result = await res.json() ;
+                  if(result.status==='success') {
+                     dispatch({type: "SET_USER", payload: result.data}) ;
+                  }
+                  else {
+                     alert("Unable to fetch user");
+                  }
+              }
+              catch(error) {
+                 // console.log(error) ;
+              }
+          }
+          fetchUser() ;
+        }
+     }, [])
 
     const setIsSidebarOpen = (isOpen) => {
-        console.log("setIssidebar called", isOpen) ;
         dispatch({type: "SET_SIDEBAR_OPEN", payload: isOpen}) ;
     } 
     
